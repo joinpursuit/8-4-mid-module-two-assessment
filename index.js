@@ -3,6 +3,7 @@
 
   Keep in mind that your functions must still have and use a parameter for accepting all movies.
 */
+const movies = require("./movies");
 const exampleMovies = require("./movies");
 // Do not change the line above.
 
@@ -30,7 +31,13 @@ const exampleMovies = require("./movies");
       "James and the Giant Peach",
     ];
  */
-function getAllMovieTitles() {}
+function getAllMovieTitles(movies) {
+  if (movies.length < 1){
+    throw "Error"
+  }
+  let movieTitle = movies.map(movies => `${movies.title}`)
+  return movieTitle
+}
 
 /**
  * checkIfAnyMovieHasRating()
@@ -50,7 +57,12 @@ function getAllMovieTitles() {}
  *  checkIfAnyMovieHasRating(movies, "R");
  *  //> false
  */
-function checkIfAnyMovieHasRating() {}
+function checkIfAnyMovieHasRating(movies, rating) {
+  if (movies.length < 1){
+    throw "Error"
+  }
+  return movies.some( movie => movie.rated === rating )
+}
 
 /**
  * findById()
@@ -66,9 +78,14 @@ function checkIfAnyMovieHasRating() {}
  *  findById(movies, "tt1979376");
  *  //> {
       // Toy Story 4
-    };
+    }; imdbID
  */
-function findById() {}
+function findById(movies, id) {
+  if (movies.length < 1){
+    throw "Error";
+  }
+  return movies.find ( movie => movie.imdbID === id )
+}
 
 /**
  * filterByGenre()
@@ -92,7 +109,11 @@ function findById() {}
  *  filterByGenre(movies, "Horror")
  *  //> []
  */
-function filterByGenre() {}
+function filterByGenre(movies , genre ) {
+  if (movies.length < 1){
+    throw "Error"
+  }
+  return movies.filter( movie => movie.genre === genre)}
 
 /**
  * getAllMoviesReleasedAtOrBeforeYear()
@@ -118,7 +139,14 @@ function filterByGenre() {}
       }
     ];
  */
-function getAllMoviesReleasedAtOrBeforeYear() {}
+function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
+  if (movies.length < 1){
+    throw "Error"
+  }
+  return movies.filter ((movie => movie.released >= year ))
+}
+
+
 
 /**
  * checkMinMetascores()
@@ -131,10 +159,17 @@ function getAllMoviesReleasedAtOrBeforeYear() {}
  * NOTE: You must use the .every()` method.
  *
  * EXAMPLE:
- *  checkMinMetascores(movies, 90));
+ * 
+ *  checkMinMetascores(movies, 90);
  *  //>  false
  */
-function checkMinMetascores() {}
+function checkMinMetascores(movies, metascore) {
+  if (movies.length < 1){
+    throw "Error"
+  }
+  return movies.every( movie => movie.metascore >= metascore )
+}
+
 
 /**
  * getRottenTomatoesScoreByMovie()
@@ -160,7 +195,20 @@ function checkMinMetascores() {}
       { "James and the Giant Peach": "91%" },
     ];
  */
-function getRottenTomatoesScoreByMovie() {}
+  function getRottenTomatoesScoreByMovie(movies) {
+    if (movies.length < 1){
+     throw "Error"
+  }
+  return movies.map((movie) => {
+  movie.ratings.find((rating) =>
+  {
+    
+  return 
+  })
+        
+ })
+  }
+
 
 // Do not change anything below this line.
 module.exports = {

@@ -30,7 +30,9 @@ const exampleMovies = require("./movies");
       "James and the Giant Peach",
     ];
  */
-function getAllMovieTitles() {}
+function getAllMovieTitles(movies) {
+  return movies.map((movie) => {movie.title})
+}
 
 /**
  * checkIfAnyMovieHasRating()
@@ -50,7 +52,9 @@ function getAllMovieTitles() {}
  *  checkIfAnyMovieHasRating(movies, "R");
  *  //> false
  */
-function checkIfAnyMovieHasRating() {}
+const checkIfAnyMovieHasRating = (movies, rating) =>  {
+movies.some(movie => movie[rating])
+}
 
 /**
  * findById()
@@ -68,7 +72,7 @@ function checkIfAnyMovieHasRating() {}
       // Toy Story 4
     };
  */
-function findById() {}
+const findById = (movies, imdbID) => movies.find((movie) => movie.imdbID === imdbID)
 
 /**
  * filterByGenre()
@@ -92,7 +96,7 @@ function findById() {}
  *  filterByGenre(movies, "Horror")
  *  //> []
  */
-function filterByGenre() {}
+const filterByGenre = (movies, genre) => movies.filter((movie) => movie.genre === genre)
 
 /**
  * getAllMoviesReleasedAtOrBeforeYear()
@@ -118,7 +122,7 @@ function filterByGenre() {}
       }
     ];
  */
-function getAllMoviesReleasedAtOrBeforeYear() {}
+const getAllMoviesReleasedAtOrBeforeYear = (movies, year) => movies.filter((movie) => movie.released.slice(-4) <= year )
 
 /**
  * checkMinMetascores()
@@ -134,7 +138,7 @@ function getAllMoviesReleasedAtOrBeforeYear() {}
  *  checkMinMetascores(movies, 90));
  *  //>  false
  */
-function checkMinMetascores() {}
+const checkMinMetascores = (movies, metascore) => movies.every((movie) => movie.metascore === metascore);
 
 /**
  * getRottenTomatoesScoreByMovie()
@@ -160,7 +164,8 @@ function checkMinMetascores() {}
       { "James and the Giant Peach": "91%" },
     ];
  */
-function getRottenTomatoesScoreByMovie() {}
+ function getRottenTomatoesScoreByMovie(movies, ratings){}
+  
 
 // Do not change anything below this line.
 module.exports = {

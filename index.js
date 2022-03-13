@@ -3,6 +3,7 @@
 
   Keep in mind that your functions must still have and use a parameter for accepting all movies.
 */
+const movies = require("./movies");
 const exampleMovies = require("./movies");
 // Do not change the line above.
 
@@ -30,7 +31,12 @@ const exampleMovies = require("./movies");
       "James and the Giant Peach",
     ];
  */
-function getAllMovieTitles() {}
+function getAllMovieTitles(movies) {
+  if (movies.length < 1){
+    throw "Error";
+  }
+  return movies.map(movie => movie.title)
+}
 
 /**
  * checkIfAnyMovieHasRating()
@@ -50,8 +56,12 @@ function getAllMovieTitles() {}
  *  checkIfAnyMovieHasRating(movies, "R");
  *  //> false
  */
-function checkIfAnyMovieHasRating() {}
-
+function checkIfAnyMovieHasRating(movies, rating = "G") {
+  if (movies.length < 1){
+    throw "Error";
+}
+return movies.some(movie => movie.rated === "G")
+}
 /**
  * findById()
  * -----------------------------
@@ -68,7 +78,16 @@ function checkIfAnyMovieHasRating() {}
       // Toy Story 4
     };
  */
-function findById() {}
+function findById(movies, id) {
+  if (movies.length < 1){
+    throw "Error";
+  }
+  let movFound = movies.find(movie => movie.imdbID === id)
+  if(movFound){
+    return movFound
+  }
+  return null
+}
 
 /**
  * filterByGenre()
@@ -92,9 +111,21 @@ function findById() {}
  *  filterByGenre(movies, "Horror")
  *  //> []
  */
-function filterByGenre() {}
-
-/**
+function filterByGenre(movies, genre) {
+  if (movies.length < 1){
+    throw "Error";
+  }
+  return movies.filter(movie => {
+    let param = genre.toLowerCase();
+    let inPar = movie.genre.toLowerCase()
+    if (inPar.includes(param)){
+      return movie
+    }
+  })
+  }
+  
+  
+  /**
  * getAllMoviesReleasedAtOrBeforeYear()
  * -----------------------------
  * Returns all movie objects with a `released` year equal to or less than the given year. If the movie array is empty, throw an error with a message.
@@ -118,8 +149,17 @@ function filterByGenre() {}
       }
     ];
  */
-function getAllMoviesReleasedAtOrBeforeYear() {}
-
+function getAllMoviesReleasedAtOrBeforeYear(movies, year){
+  if (movies.length < 1){
+    throw "Error";
+}
+return movies.filter(movie => { 
+  let releaseDate = movie.released.split(" ");
+  if( releaseDate[2] <= year) {
+    return movie;
+}
+})
+}
 /**
  * checkMinMetascores()
  * -----------------------------
@@ -134,8 +174,12 @@ function getAllMoviesReleasedAtOrBeforeYear() {}
  *  checkMinMetascores(movies, 90));
  *  //>  false
  */
-function checkMinMetascores() {}
-
+function checkMinMetascores(movies, metascore) {
+  if (movies.length < 1){
+    throw "Error";
+  }
+  return movies.every(movie => movie.metascore >= metascore)
+}
 /**
  * getRottenTomatoesScoreByMovie()
  * -----------------------------
@@ -160,8 +204,15 @@ function checkMinMetascores() {}
       { "James and the Giant Peach": "91%" },
     ];
  */
-function getRottenTomatoesScoreByMovie() {}
-
+function getRottenTomatoesScoreByMovie(movies) {
+  if (!movies.length){
+    throw "Error";
+}
+return movies.map(movie => {
+  let movRatingObj = movie.ratings.find((rating) => rating.source === "Rotten Tomatoes");
+  return {[movie.title]:movRatingObj.value}
+})
+}
 // Do not change anything below this line.
 module.exports = {
   getAllMovieTitles,

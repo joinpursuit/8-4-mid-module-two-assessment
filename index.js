@@ -30,7 +30,16 @@ const exampleMovies = require("./movies");
       "James and the Giant Peach",
     ];
  */
-function getAllMovieTitles() {}
+//to get the movie titles used the .map method
+// first I included a if statement that throws an error when there's no movie array is present
+    const getAllMovieTitles = (movies) => {
+      if(!movies.length) throw "Error"
+    
+      return movies.map((movie) => movie.title);
+     
+    
+    }
+
 
 /**
  * checkIfAnyMovieHasRating()
@@ -50,7 +59,19 @@ function getAllMovieTitles() {}
  *  checkIfAnyMovieHasRating(movies, "R");
  *  //> false
  */
-function checkIfAnyMovieHasRating() {}
+// Lol, random thought do you guy accually read these comments or do you just look for the code you want to see?
+//create a function using w/ the .some method to boolean true
+//I don't know if my if statement to check for no "G" worked because the 
+//test started acting weird stop showing the checks
+ const checkIfAnyMovieHasRating = (movies, [rated = "G"]) => {
+  if(!movies.length) throw "Error"
+  return movies.some((movie) => movie.rated === 'G');
+  if(!movies.rated === "G"){
+    return false
+  }
+
+  
+}
 
 /**
  * findById()
@@ -68,8 +89,14 @@ function checkIfAnyMovieHasRating() {}
       // Toy Story 4
     };
  */
-function findById() {}
-
+// use the .find method to find specific id
+// add throw error if no id was present
+const findById = (movies, id) => {
+  if(!movies.length) throw "Error"
+  return movies.find((movie) => {
+    return movie.imdbID === id
+  })
+}
 /**
  * filterByGenre()
  * -----------------------------
@@ -92,7 +119,17 @@ function findById() {}
  *  filterByGenre(movies, "Horror")
  *  //> []
  */
-function filterByGenre() {}
+// used .filter to filter our horror movies
+// 
+const filterByGenre = (movies, genre) => {
+  let movieGenre = [];
+  if(!movies.length) throw "Error"
+
+  return movies.filter((movie) => movie.genre === "Horror")
+  movieGenre.push(filterByGenre)
+  return movieGenre
+}
+
 
 /**
  * getAllMoviesReleasedAtOrBeforeYear()
@@ -118,7 +155,12 @@ function filterByGenre() {}
       }
     ];
  */
-function getAllMoviesReleasedAtOrBeforeYear() {}
+  const getAllMoviesReleasedAtOrBeforeYear = (movies, year) => {
+    if(!movies.length) throw "Error"
+      return movies.filter((movie) => {
+        return (movie.year <= year)
+      })
+    }
 
 /**
  * checkMinMetascores()
@@ -134,7 +176,10 @@ function getAllMoviesReleasedAtOrBeforeYear() {}
  *  checkMinMetascores(movies, 90));
  *  //>  false
  */
-function checkMinMetascores() {}
+ const checkMinMetascores = (movies, metascore) => {
+  if(!movies.length) throw "Error"
+  return movies.every((movie) => movie.metascore < metascore)
+}
 
 /**
  * getRottenTomatoesScoreByMovie()
@@ -160,7 +205,17 @@ function checkMinMetascores() {}
       { "James and the Giant Peach": "91%" },
     ];
  */
-function getRottenTomatoesScoreByMovie() {}
+// i was trying to throw an error message
+// then movie title and the value at the specific ratings
+const getRottenTomatoesScoreByMovie = (movies) => {
+
+  //   if(!movies.length) { 
+  //     throw "ERROR: No movies!"
+  //   }
+  //   return movies.map((movie) => {
+  //     let ratingOfObject = movie.ratings.find((rating) => rating.source === "Rotten Tomatoes");
+  //     return { [movie.title] : ratingOfObject.value}
+  }
 
 // Do not change anything below this line.
 module.exports = {

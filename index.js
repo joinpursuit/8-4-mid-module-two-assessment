@@ -30,7 +30,8 @@ const exampleMovies = require("./movies");
       "James and the Giant Peach",
     ];
  */
-function getAllMovieTitles() {}
+const getAllMovieTitles = (movies) => { if (!movies.length) throw "Error: The Array is empty";  return movies.map(movie => movie.title)}
+
 
 /**
  * checkIfAnyMovieHasRating()
@@ -50,12 +51,14 @@ function getAllMovieTitles() {}
  *  checkIfAnyMovieHasRating(movies, "R");
  *  //> false
  */
-function checkIfAnyMovieHasRating() {}
+ const checkIfAnyMovieHasRating = (movies, rating = "G") => {if (!movies.length) throw "Error: The Array is empty"; return movies.some(movie => movie.rated === rating)}
 
 /**
  * findById()
  * -----------------------------
- * Returns a movie object from an array of objects based on the ID. If the inputted `movies` array is empty, throw an error with a message. If the ID does not match any movie, return `null`.
+ * Returns a movie object from an array of objects based on the ID. 
+ * If the inputted `movies` array is empty, throw an error with a message. 
+ * If the ID does not match any movie, return `null`.
  * @param {Object[]} movies - An array of movies. See the `movies.js` file for an example of this array.
  * @param {string} id - A unique `imdbID`.
  * @returns {Object|Error|null} The movie object with the matching `imdbID`.
@@ -68,12 +71,25 @@ function checkIfAnyMovieHasRating() {}
       // Toy Story 4
     };
  */
-function findById() {}
+    function findById(movies, id) {
+      if (!movies.length){
+        throw "Error: The Array is empty"
+       } 
+       let newID = null;
+      for (let movie of movies){
+        if (movie.imdbID === id){
+          return movies.find(movie => movie.imdbID === id)
+        } 
+    }
+    return newID
+  }
 
 /**
  * filterByGenre()
  * -----------------------------
- * Returns all movie objects with a matching genre. Case-insensitive. If the inputted `movies` array is empty, throw an error with a message. If no movies match the inputted `genre`, return `[]`.
+ * Returns all movie objects with a matching genre. Case-insensitive. 
+ * If the inputted `movies` array is empty, throw an error with a message. 
+ * If no movies match the inputted `genre`, return `[]`.
  * @param {Object[]} movies - An array of movies. See the `movies.js` file for an example of this array.
  * @param {string} genre - The genre of a movie. (e.g. "Fantasy")
  * @returns {Object[]|Error} An array of movies where at least one of the genres matches the `genre` inputted.
@@ -91,13 +107,15 @@ function findById() {}
  * EXAMPLE:
  *  filterByGenre(movies, "Horror")
  *  //> []
- */
-function filterByGenre() {}
-
+//  */
+   
+    const filterByGenre = (movies, genre) => {if(!movies.length) throw "Error: The Array is empty"; return movies.filter((movie) => movie.genre.toLowerCase().includes(genre.toLowerCase()))
+    }
 /**
  * getAllMoviesReleasedAtOrBeforeYear()
  * -----------------------------
- * Returns all movie objects with a `released` year equal to or less than the given year. If the movie array is empty, throw an error with a message.
+ * Returns all movie objects with a `released` year equal to or less than the given year. 
+ * If the movie array is empty, throw an error with a message.
  * @param {Object[]} movies - An array of movies. See the `movies.js` file for an example of this array.
  * @param {number} year - A year as a number. (e.g. 2000)
  * @returns {Object[]|Error} An array of movies where the `released` year is equal to or less than the inputted year.
@@ -118,8 +136,9 @@ function filterByGenre() {}
       }
     ];
  */
-function getAllMoviesReleasedAtOrBeforeYear() {}
 
+const getAllMoviesReleasedAtOrBeforeYear = (movies, year) => {if(!movies.length) throw "Error: The Array is empty"; return movies.filter((movie) => movie.year)
+    }
 /**
  * checkMinMetascores()
  * -----------------------------
@@ -134,7 +153,7 @@ function getAllMoviesReleasedAtOrBeforeYear() {}
  *  checkMinMetascores(movies, 90));
  *  //>  false
  */
-function checkMinMetascores() {}
+const checkMinMetascores = (movies) => movies.every(movie => ({ [movie.metascore] : movie.artist} ));
 
 /**
  * getRottenTomatoesScoreByMovie()

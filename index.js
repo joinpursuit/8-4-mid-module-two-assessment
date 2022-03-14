@@ -63,13 +63,10 @@ function checkIfAnyMovieHasRating(movies) {
     throw "Error No Movies Listed"
   }
   return movies.some((movie) => {
-    if(movie.rating === 0){
-      return "G"
-    }
+    
     return movie.rated === movie.rated
   })
   
-  return "G"
 }
 
 /**
@@ -130,7 +127,6 @@ function filterByGenre(movies,genre) {
   if(movies.length === 0){
     throw "Error No Movies Listed"
   }
-  let filteredGenre = [];
   return movies.filter((movie) =>{
     if(movie.genre.toUpperCase().includes === genre.toUpperCase()){
       return movie.title
@@ -234,12 +230,12 @@ function getRottenTomatoesScoreByMovie(movies) {
   if(movies.length === 0){
     throw "Error No Movies Listed"
   }
-  return movies.map((movie) =>{
-    return movie.title 
+  movieScore = {}
+  
+  return movies.map((movie) => ({
+     [movie.title] : movie.value
   }) 
-
-
-
+  )
 }
 
 // Do not change anything below this line.

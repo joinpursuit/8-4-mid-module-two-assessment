@@ -236,9 +236,9 @@ function getRottenTomatoesScoreByMovie(movies) {
     throw "missing movies.";
   }
 
-  let result = [];
+  //let result = [];
 
-  movies.map((movie) => {
+  let result = movies.map((movie) => {
     //loops through all already
     let str = movie.ratings.find((eachRating) => {
       //got to set it to a var so I can get part of it
@@ -247,7 +247,7 @@ function getRottenTomatoesScoreByMovie(movies) {
       }
     });
 
-    result.push({ [movie.title]: str.value }); //push this format into the arr.
+    return ({ [movie.title]: str.value }); //push this format into the arr.
   });
 
   return result;

@@ -58,15 +58,18 @@ function getAllMovieTitles(movies) {
  *  checkIfAnyMovieHasRating(movies, "R");
  *  //> false
  */
-function checkIfAnyMovieHasRating(movies, [rating="G"]) {
+function checkIfAnyMovieHasRating(movies) {
   if(movies.length === 0){
     throw "Error No Movies Listed"
   }
   return movies.some((movie) => {
-    return movie.rating === movie.rating
+    if(movie.rating === 0){
+      return "G"
+    }
+    return movie.rated === movie.rated
   })
   
-
+  return "G"
 }
 
 /**
@@ -86,14 +89,16 @@ function checkIfAnyMovieHasRating(movies, [rating="G"]) {
     };
  */
 function findById(movies, id) {
+  if(id !== id){
+    return null;
+  }
   if(movies.length === 0){
     throw "Error No Movies Listed"
   }
 
   return movies.find((movie) =>{
-    if(id !== movie){
-      return null;
-    }
+    // console.log(movies.tite)
+    if(movies.title === id)
     return movie.title
   })
 
@@ -124,7 +129,20 @@ function findById(movies, id) {
  *  filterByGenre(movies, "Horror")
  *  //> []
  */
-function filterByGenre() {}
+function filterByGenre(movies,genre) {
+  if(movies.length === 0){
+    throw "Error No Movies Listed"
+  }
+  let noMatch = []
+
+  return movies.filter((movie) =>{
+    if(movie.title === genre){
+      return movie.title
+    } else{
+      return null;
+    }
+  })
+}
 
 /**
  * getAllMoviesReleasedAtOrBeforeYear()
@@ -150,7 +168,19 @@ function filterByGenre() {}
       }
     ];
  */
-function getAllMoviesReleasedAtOrBeforeYear() {}
+function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
+  if(movies.length === 0){
+    throw "Error No Movies Listed"
+  }
+  let noMovies =[]
+  movies.filter((movie) => {
+    if(movie.released <= year){
+      return movie
+    } else {
+      return noMovies
+    }
+  })
+}
 
 /**
  * checkMinMetascores()
@@ -166,7 +196,14 @@ function getAllMoviesReleasedAtOrBeforeYear() {}
  *  checkMinMetascores(movies, 90));
  *  //>  false
  */
-function checkMinMetascores() {}
+function checkMinMetascores(movies,metascore) {
+  if(movies.length === 0){
+    throw "Error No Movies Listed"
+  }
+  return movies.every((movie) =>{
+    return movie.metascore >= metascore
+  })
+}
 
 /**
  * getRottenTomatoesScoreByMovie()
@@ -192,7 +229,17 @@ function checkMinMetascores() {}
       { "James and the Giant Peach": "91%" },
     ];
  */
-function getRottenTomatoesScoreByMovie() {}
+function getRottenTomatoesScoreByMovie(movies) {
+  if(movies.length === 0){
+    throw "Error No Movies Listed"
+  }
+  return movies.map.find((movie) =>{
+    return 
+  })
+
+
+
+}
 
 // Do not change anything below this line.
 module.exports = {

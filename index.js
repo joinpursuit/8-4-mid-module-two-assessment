@@ -89,19 +89,16 @@ function checkIfAnyMovieHasRating(movies) {
     };
  */
 function findById(movies, id) {
-  if(id !== id){
-    return null;
-  }
+  
   if(movies.length === 0){
     throw "Error No Movies Listed"
   }
 
   return movies.find((movie) =>{
-    // console.log(movies.tite)
-    if(movies.title === id)
-    return movie.title
+    if(movie.imdbID === id)
+    return movie
   })
-
+    
   }
 
   
@@ -133,14 +130,12 @@ function filterByGenre(movies,genre) {
   if(movies.length === 0){
     throw "Error No Movies Listed"
   }
-  let noMatch = []
-
+  let filteredGenre = [];
   return movies.filter((movie) =>{
-    if(movie.title === genre){
+    if(movie.genre.toUpperCase().includes === genre.toUpperCase()){
       return movie.title
-    } else{
-      return null;
     }
+    
   })
 }
 
@@ -172,15 +167,21 @@ function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
   if(movies.length === 0){
     throw "Error No Movies Listed"
   }
-  let noMovies =[]
-  movies.filter((movie) => {
-    if(movie.released <= year){
-      return movie
-    } else {
-      return noMovies
+  return movies.filter((movie) =>{
+    if(movie.released <= year) {
+      return movie.title
     }
+
   })
+
 }
+
+
+
+
+  
+
+
 
 /**
  * checkMinMetascores()
@@ -233,9 +234,9 @@ function getRottenTomatoesScoreByMovie(movies) {
   if(movies.length === 0){
     throw "Error No Movies Listed"
   }
-  return movies.map.find((movie) =>{
-    return 
-  })
+  return movies.map((movie) =>{
+    return movie.title 
+  }) 
 
 
 

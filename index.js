@@ -302,14 +302,18 @@ function getRottenTomatoesScoreByMovie(movies) {
 
 // TIM'S CODE: 
 // -------------------------------------------------------------
-// function getRottenTomatoesScoreByMovie(movies) {
-//   validate(movies);
-//   return movies.map(movie => {
-//   // .find() returns the entire matching index, in this case returning the matching object
-//     const tomatoScore = movie.ratings.find(rating => rating.source === "Rotten Tomatoes");
-//     return { [movie.title] : tomatoScore.value }
-//   })
-// }
+function getRottenTomatoesScoreByMovie(movies) {
+  validate(movies);
+  return movies.map(movie => {
+  // .find() returns the entire matching index, in this case returning the matching object
+    const tomatoScore = movie.ratings.find(rating => rating.source === "Rotten Tomatoes");
+    return { [movie.title] : tomatoScore.value }
+    
+  // ALTERNATIVE: 
+  // const tomatoScore = movie.ratings.find(rating => rating.source === "Rotten Tomatoes").value;
+  // return { [movie.title] : tomatoScore }
+  })
+}
 
 // Do not change anything below this line.
 module.exports = {

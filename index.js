@@ -32,13 +32,23 @@ const exampleMovies = require("./movies");
  */
 function getAllMovieTitles(movies) {
 
-  if(movies.length === 0){
-    throw "Error No Movies Listed"
+
+  //you can create a function to throw an error message if you want to specify error message for each  
+  //const validate = (movies){
+    //If(movies.length === 0){
+      //throw "Error no movies found"
+   // }
+   if(movies.length === 0){
+     throw "Error No Movies Listed"
+   }
+
+   //validate(movies) - instead of writing if statement each line of code 
+   return movies.map((movie) => {
+     return movie.title
+   })
+
   }
-  return movies.map((movie) => {
-    return movie.title
-  })
-}
+
 
 /**
  * checkIfAnyMovieHasRating()
@@ -57,14 +67,15 @@ function getAllMovieTitles(movies) {
  * EXAMPLE:
  *  checkIfAnyMovieHasRating(movies, "R");
  *  //> false
- */
-function checkIfAnyMovieHasRating(movies) {
+ *///
+ //rating is the parameter with "G as the default value"
+function checkIfAnyMovieHasRating(movies, rating = "G") {
   if(movies.length === 0){
     throw "Error No Movies Listed"
   }
   return movies.some((movie) => {
-    
-    return movie.rated === movie.rated
+    //return moving rating if rating matches 
+    return movie.rated === rating
   })
   
 }
@@ -90,9 +101,10 @@ function findById(movies, id) {
   if(movies.length === 0){
     throw "Error No Movies Listed"
   }
-
+  let found = movies.find(movie => movie.imdbID === id);
+  return found ? found : null 
   return movies.find((movie) =>{
-    if(movie.imdbID === id)
+    if(movie.imdbID === id || null)
     return movie
   })
     
@@ -127,12 +139,14 @@ function filterByGenre(movies,genre) {
   if(movies.length === 0){
     throw "Error No Movies Listed"
   }
-  return movies.filter((movie) =>{
-    if(movie.genre.toUpperCase().includes === genre.toUpperCase()){
-      return movie.title
-    }
+  
+  return movies.filter(movie => movie.genre.toUpperCase().includes(genre.toUpperCase()));
+  // return movies.filter((movie) =>{
+  //   if(movie.genre.toUpperCase().includes === genre.toUpperCase()){
+  //     return movie.title
+  //   }
     
-  })
+  // })
 }
 
 /**
@@ -163,12 +177,18 @@ function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
   if(movies.length === 0){
     throw "Error No Movies Listed"
   }
-  return movies.filter((movie) =>{
-    if(movie.released <= year) {
-      return movie.title
-    }
-
+  return movies.filter(movie => { 
+    //creates a careiable that splits the date string "21 Jun 2019"
+    const split = movie.released.split(" ");
+    //return the year 2019 which is the end of the string 
+    return split[split.length -1] <= year;
   })
+  // return movies.filter((movie) =>{
+  //   if(movie.released <= year) {
+  //     return movie.title
+  //   }
+
+  // })
 
 }
 
@@ -230,12 +250,18 @@ function getRottenTomatoesScoreByMovie(movies) {
   if(movies.length === 0){
     throw "Error No Movies Listed"
   }
-  movieScore = {}
+  return movies.map(movie => {
+    //create a variable to equal the iteration of movie ratings 
+    const tomatoScore = movie.ratings
+    //.find method will only find the iteration of rating with the source "Rotten Tomatoes" and store only the value
+    .find(rating => rating.source === "Rotten Tomatoes").value;
+    return { [movie.title] : tomatoScore}
+  })
   
-  return movies.map((movie) => ({
-     [movie.title] : movie.value
-  }) 
-  )
+  // return movies.map((movie) => ({
+  //    [movie.title] : movie.value
+  // }) 
+  // )
 }
 
 // Do not change anything below this line.

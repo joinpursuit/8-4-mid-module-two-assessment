@@ -3,6 +3,7 @@
 
   Keep in mind that your functions must still have and use a parameter for accepting all movies.
 */
+const movies = require("./movies");
 const exampleMovies = require("./movies");
 // Do not change the line above.
 
@@ -30,10 +31,17 @@ const exampleMovies = require("./movies");
       "James and the Giant Peach",
     ];
  */
+
+//make a global function to throw an error that you can reuse for all tests
+const validate = (movies) => { if(!movies.length) throw 'Error: Invalid movie input!'; }
+  
+
 function getAllMovieTitles(movies) {
-  if(movies.length === 0){
-    throw 'Error';
-  }
+  // Tim's edgecases/real world example -- if(!movies || movies.length < 1 || (how to check for an empty object) = Object.keys(movies.length < 1))
+  // if(!movies.length){
+  //   throw 'Error';
+  // }
+  validate(movies);
 
   return movies.map(movie => movie.title);
 }
@@ -57,7 +65,7 @@ function getAllMovieTitles(movies) {
  *  //> false
  */
 function checkIfAnyMovieHasRating(movies, rating = "G") {
-  if(movies.length === 0){
+  if(!movies.length){
     throw 'Error';
   }
 
@@ -93,7 +101,13 @@ function findById(movies, id) {
   });
 
   return movieFound;
+
+// tim's example
+// validate(movies);
+// return movies.find(movie => movie.imdbID === id) || null;
 }
+
+
 
 /**
  * filterByGenre()
@@ -118,11 +132,17 @@ function findById(movies, id) {
  *  //> []
  */
 function filterByGenre(movies, genre) {
-  if(movies.length === 0){
-    throw 'Error';
-  };
+  // if(movies.length === 0){
+  //   throw 'Error';
+  // };
 
-  return movies.filter(movie => movie.genre.toLowerCase().includes(genre.toLowerCase()));
+  // return movies.filter(movie => movie.genre.toLowerCase().includes(genre.toLowerCase()));
+
+  //Tim's example below:
+  validate(movies);
+
+  const regEx = new RegExp(genre, 'gi')
+  return movies.filter(movie => movie.genre.match(regEx))
 }
 
 /**
@@ -150,11 +170,19 @@ function filterByGenre(movies, genre) {
     ];
  */
 function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
-  if(movies.length === 0){
-    throw 'Error';
-  };
+  // if(movies.length === 0){
+  //   throw 'Error';
+  // };
   
-  return movies.filter(movie => movie.released.slice(-4) <= year);
+  // return movies.filter(movie => movie.released.slice(-4) <= year);
+
+  //Tim's example below
+  validate(movies);
+
+  return movies.filter(movie => {
+    const split = movie.released.split(' ');
+    return split[split.length-1] <= year;
+  })
 }
 
 /**
@@ -172,11 +200,15 @@ function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
  *  //>  false
  */
 function checkMinMetascores(movies, metascore) {
-  if(movies.length === 0){
-    throw 'Error';
-  };
+  // if(movies.length === 0){
+  //   throw 'Error';
+  // };
 
-  return movies.every(movie => Number(movie.metascore) >= metascore);
+  // return movies.every(movie => Number(movie.metascore) >= metascore);
+
+  //tim's example
+  validate(movies);
+  return movies.every(movie => movie.metascore >= metascore)
 }
 
 /**
@@ -204,16 +236,23 @@ function checkMinMetascores(movies, metascore) {
     ];
  */
 function getRottenTomatoesScoreByMovie(movies) {
-  if(movies.length === 0){
-    throw 'Error';
-  };
+  //  if(movies.length === 0){
+  //   throw 'Error';
+  // };
 
-  let rottonTomatoeScores = movies.map(movie => {
-    let rottenTomatoVal = movie.ratings.find(rating => rating.source === 'Rotten Tomatoes')
-    return { [movie.title]: rottenTomatoVal.value }
+  // let rottonTomatoeScores = movies.map(movie => {
+  //   // let rottenTomatoVal = movie.ratings.find(rating => rating.source === 'Rotten Tomatoes')
+  //   return { [movie.title]: movie.ratings.find(rating => rating.source === 'Rotten Tomatoes').value}
+  // })
+
+  // return rottonTomatoeScores;
+
+  //Tim's example
+  validate(movies);
+  return movies.map(movie => {
+    const tomatoScore = movie.ratings.find(rating => rating.source === 'Rotten Tomatoes').value;
+    return { [movie.title] : tomatoScore }
   })
-
-  return rottonTomatoeScores;
 }
 
 // Do not change anything below this line.

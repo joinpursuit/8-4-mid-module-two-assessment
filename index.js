@@ -80,11 +80,16 @@ function checkIfAnyMovieHasRating(movies, rating = "G") {
     };
  */
 function findById(movies, id = null) {
-  return movies.find((movie) => {
-    if(movie.imdbID === id) {
-      return movie;
-    };
-  });
+  // return movies.find((movie) => {
+  //   if(movie.imdbID === id) {
+  //     return movie;
+  //   };
+
+
+  if(!movies.length) {
+    throw 'Error'
+  }
+  return movies.find(movie => movie.imdbID === id) || null
 };
 
 /**
@@ -110,12 +115,17 @@ function findById(movies, id = null) {
  *  //> []
  */
 function filterByGenre(movies, genre) {
-  return movies.filter((movie) => {
-    let caseInsensitive = movie.genre.toLowerCase();
-    if(caseInsensitive.includes(genre.toLowerCase())) {
-      return movie;
-    };
-  });
+  // return movies.filter((movie) => {
+  //   let caseInsensitive = movie.genre.toLowerCase();
+  //   if(caseInsensitive.includes(genre.toLowerCase())) {
+  //     return movie;
+  //   };
+  // });
+
+  if(!movies.length) {
+    throw 'Error'
+  }
+  return movies.filter(movie => movie.genre.toLowerCase().includes(genre.toLowerCase()))
 };
 
 /**
@@ -197,7 +207,12 @@ function checkMinMetascores(movies, metascore) {
       { "James and the Giant Peach": "91%" },
     ];
  */
-function getRottenTomatoesScoreByMovie(movies) {}
+function getRottenTomatoesScoreByMovie(movies) {
+  if(!movies.length) {
+    throw 'Error'
+  }
+  return movies.map(movie => { return {[movie.title] : movie.ratings.find(rating => rating.source === 'Rotten Tomatoes').value }})
+}
 
 // Do not change anything below this line.
 module.exports = {

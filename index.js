@@ -31,6 +31,12 @@ const exampleMovies = require("./movies");
       "James and the Giant Peach",
     ];
  */
+
+    // Could create a helper function so we don't have to repeat our throw portion of the function.//
+    // const validate = (movies) => {
+    //   throw 'Error';
+    // }
+//Instead of typing the if statement for the throw function.  You can type "validate(movies);" -- which will reference the function above (without the quotes).
 function getAllMovieTitles(movies) {
   if(!movies.length) {
     throw 'Error'
@@ -211,8 +217,8 @@ function getRottenTomatoesScoreByMovie(movies) {
   if(!movies.length) {
     throw 'Error'
   }
-  return movies.map(movie => { return {[movie.title] : movie.ratings.find(rating => rating.source === 'Rotten Tomatoes').value }})
-}
+  return movies.map(movie => { return {[movie.title] : movie.ratings.find(rating => rating.source === 'Rotten Tomatoes').value }});
+};
 
 // Do not change anything below this line.
 module.exports = {

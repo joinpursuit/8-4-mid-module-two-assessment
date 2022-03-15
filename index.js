@@ -133,11 +133,11 @@ function filterByGenre(movies, genre) {
     throw "no movies given.";
   }
 
-  genre = genre.charAt(0).toUpperCase() + genre.toLowerCase().slice(1);//case-insensitive
+  //genre = genre.charAt(0).toUpperCase() + genre.toLowerCase().slice(1);//case-insensitive
   //console.log(genre)
 
   const result = movies.filter((movie) => {
-    if (movie.genre.includes(genre)) {
+    if (movie.genre.toUpperCase().includes(genre.toUpperCase())) {
       return movie;
     }
   });

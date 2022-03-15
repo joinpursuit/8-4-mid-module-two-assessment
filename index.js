@@ -6,6 +6,7 @@
 const exampleMovies = require("./movies");
 // Do not change the line above.
 
+
 /**
  * getAllMovieTitles()
  * -----------------------------
@@ -30,8 +31,20 @@ const exampleMovies = require("./movies");
       "James and the Giant Peach",
     ];
  */
+
+
+// **** BELOW CODE CAN BE USED FOR ALL FUNCTIONS!! (ITS GLOBAL & CHECKS IF MOVIES ARRAY HAS INPUT) ****
+// ------------------------------------------------------------------------------
+// const validate = (movies) => {
+//   if (!movies.length) {
+//     throw "ERROR: No movies!"
+//   }
+// }
+
+// MY CODE: 
+// -----------------------------------------------------------------------------------------
 function getAllMovieTitles(movies) {
-  if (!movies.length) {
+  if (!movies.length) { // if(!movies || movies.length < 1 || Object.keys(movies).length < 1)
     throw "ERROR: No movies!"
   }
   return movies.map(movie => movie.title)
@@ -55,6 +68,9 @@ function getAllMovieTitles(movies) {
  *  checkIfAnyMovieHasRating(movies, "R");
  *  //> false
  */
+
+// MY CODE: 
+// -------------------------------------------------------------
 function checkIfAnyMovieHasRating(movies, rating = "G") {
   if (!movies.length) {
     throw "ERROR: No movies!"
@@ -78,11 +94,18 @@ function checkIfAnyMovieHasRating(movies, rating = "G") {
       // Toy Story 4
     };
  */
+
+// MY CODE: 
+// -------------------------------------------------------------
 function findById(movies, id) {
   let result = null;
   if (!movies.length) {
     throw "ERROR: No movies!"
   }
+
+  // HOW TO USE GLOBAL VARIBLE: (MAKE SURE TO ERASE LINES #90-93 & insert #95)
+  // validate(movies);
+
   movies.find(movie => {
     if (movie.imdbID === id) {
       result = movie;
@@ -90,6 +113,21 @@ function findById(movies, id) {
   });
   return result
 }
+
+// TIM'S CODE: 
+// -------------------------------------------------------------
+// function findById(movies, id) {
+//   validate(movies);
+//   return movies.find(movie => movie.imdbID === id) || null;
+// }
+
+// TIM'S CODE WITH TERNARY:
+// -------------------------------------------------------------
+// function findById(movies, id) {
+//   validate(movies);
+//   let found = movies.find(movie => movie.imdbID === id);
+//   return found ? found : null
+// }
 
 /**
  * filterByGenre()
@@ -113,6 +151,9 @@ function findById(movies, id) {
  *  filterByGenre(movies, "Horror")
  *  //> []
  */
+
+// MY CODE: 
+// -------------------------------------------------------------
 function filterByGenre(movies, genre) {
   if (!movies.length) {
     throw "ERROR: No movies!"
@@ -124,6 +165,27 @@ function filterByGenre(movies, genre) {
     };
   });
 }
+
+// TIM'S CODE: 
+// -------------------------------------------------------------
+// function filterByGenre(movies, genre) {
+//   validate(movies);
+//   return movies.filter(movie => movie.genre.toUpperCase().includes(genre.toUpperCase()));
+// }
+
+// TIM'S FAVORITE CODE: 
+// ---------------------------------------------------------------------------------
+// // NOTES:
+// // RegExp -> "Regular Expression" - pattern of characters
+// // The g and i modifiers have these meanings:
+// // g = global, match all instances of the pattern in a string, not just one
+// // i = case-insensitive (so, for example, /a/i will match the string "a" or "A".
+// ---------------------------------------------------------------------------------
+// function filterByGenre(movies, genre) {
+//   validate(movies);
+//   const regEx = new RegExp(genre, "gi");
+//   return movies.filter(movie => movie.genre.match(regEx));
+// }
 
 /**
  * getAllMoviesReleasedAtOrBeforeYear()
@@ -149,12 +211,26 @@ function filterByGenre(movies, genre) {
       }
     ];
  */
+
+// MY CODE: 
+// -----------------------------------------------------------------------------
 function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
   if (!movies.length) {
     throw "ERROR: No movies?!"
   }
   return movies.filter((movie) => Number(movie.released.split(" ")[2]) <= year);
 }
+
+// TIM'S CODE: 
+// --------------------------------------------------------------
+// function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
+//   validate(movies);
+//   return movies.filter(movie => {
+//     const split = movie.released.split(" "); //> Including the var makes code easier to read
+//     return split[split.length - 1] <= year; //> Better way of indexing 
+//   })
+// }
+
 
 /**
  * checkMinMetascores()
@@ -170,12 +246,22 @@ function getAllMoviesReleasedAtOrBeforeYear(movies, year) {
  *  checkMinMetascores(movies, 90));
  *  //>  false
  */
+
+// MY CODE: 
+// -------------------------------------------------------------
 function checkMinMetascores(movies, metascore) {
   if (!movies.length) {
     throw "ERROR: No movies!!!";
   }
   return movies.every(movie => Number(movie.metascore) >= metascore);
 }
+
+// TIM'S CODE: 
+// -------------------------------------------------------------
+// function checkMinMetascores(movies, metascore) {
+//   validate(movies);
+//   return movies.every(movie => movie.metascore >= metascore);
+// }
 
 /**
  * getRottenTomatoesScoreByMovie()
@@ -201,6 +287,8 @@ function checkMinMetascores(movies, metascore) {
       { "James and the Giant Peach": "91%" },
     ];
  */
+// MY CODE: 
+// -------------------------------------------------------------
 function getRottenTomatoesScoreByMovie(movies) {
   if (!movies.length) {
     throw "ERROR: No movies here!"
@@ -210,8 +298,18 @@ function getRottenTomatoesScoreByMovie(movies) {
     console.log(ratingObj);
     return { [movie.title]: ratingObj.value }
   })
-
 }
+
+// TIM'S CODE: 
+// -------------------------------------------------------------
+// function getRottenTomatoesScoreByMovie(movies) {
+//   validate(movies);
+//   return movies.map(movie => {
+//   // .find() returns the entire matching index, in this case returning the matching object
+//     const tomatoScore = movie.ratings.find(rating => rating.source === "Rotten Tomatoes");
+//     return { [movie.title] : tomatoScore.value }
+//   })
+// }
 
 // Do not change anything below this line.
 module.exports = {
